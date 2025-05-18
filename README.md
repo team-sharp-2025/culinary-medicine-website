@@ -1,84 +1,98 @@
-# Turborepo starter
+## 🏥 Doctor's Portal - Full Stack Application
 
-This Turborepo starter is maintained by the Turborepo core team.
+This project is a Full Stack Application for a Doctor's Portal built with **Next.js (App Router)** for the frontend and backend. It allows patients to view doctor information and blogs, and provides an admin panel for doctors to create, edit, and manage their blog posts.
 
-## Using this example
+---
 
-Run the following command:
-
-```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## 🗂️ **Folder Structure**
 
 ```
-cd my-turborepo
-pnpm build
+culinary-medicine-website/
+├── app
+│   ├── api            # Next.js API Routes (server-side logic)
+│   ├── admin          # Admin portal for CRUD operations
+│   ├── blogs          # Blog listing and details pages
+│   ├── components     # Shared React components
+│   ├── services       # API calls and service logic
+│   └── types          # TypeScript types
+│
+├── node_modules
+├── package.json
+├── turbo.json
+├── tsconfig.json
+└── README.md
 ```
 
-### Develop
+- **api**: All backend API routes for blogs, users, etc.
+- **admin**: Admin portal to manage blogs.
+- **blogs**: Blog listing and detail pages.
+- **components**: Reusable components.
+- **services**: Services for API interactions.
+- **types**: Type definitions for TypeScript.
 
-To develop all apps and packages, run the following command:
+---
 
-```
-cd my-turborepo
-pnpm dev
-```
+## 🚀 **Getting Started**
 
-### Remote Caching
+### 1️⃣ **Clone the repository**
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```bash
+git clone <repository-url>
+cd <repository-name>
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### 2️⃣ **Install dependencies**
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
+```bash
+yarn install
 ```
 
-## Useful Links
+If you are using npm:
 
-Learn more about the power of Turborepo:
+```bash
+npm install
+```
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+### 3️⃣ **Run the application**
+
+**To run the application:**
+
+```bash
+yarn dev
+```
+
+The application will be running at [http://localhost:3000](http://localhost:3000).
+
+---
+
+## 🛠️ **Available Scripts**
+
+| Script       | Description                               |
+| ------------ | ----------------------------------------- |
+| `yarn dev`   | Runs the application in development mode  |
+| `yarn build` | Builds the application for production     |
+| `yarn start` | Starts the application in production mode |
+| `yarn lint`  | Runs the linter to check for code issues  |
+
+---
+
+## 💡 **Tech Stack**
+
+- **Next.js (App Router)** - Full-stack application (frontend + backend)
+- **TypeScript** - Type Safety
+- **Turborepo** - Monorepo management
+- **React** - UI Components
+
+---
+
+## ✅ **Next Steps**
+
+- Implement **Admin CRUD Pages** (`admin/page.tsx`) for blog management.
+- Setup **Database Connection** (MongoDB or PostgreSQL) for real-time data.
+- Implement **Authentication & Authorization** for admin access.
+
+Feel free to reach out for more information!
+
+---
+
+> Crafted with ❤️ using Next.js and TypeScript.
