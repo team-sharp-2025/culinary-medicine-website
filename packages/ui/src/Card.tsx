@@ -1,14 +1,15 @@
-import React from "react";
+import * as React from "react";
 
-export const Card = ({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) => (
-  <div className="border p-4 rounded shadow bg-white">
-    <h2 className="text-lg font-bold mb-2">{title}</h2>
-    <div>{children}</div>
-  </div>
+export type CardProps = React.HTMLAttributes<HTMLDivElement>;
+
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ ...props }, ref) => (
+    <div
+      ref={ref}
+      {...props}
+    />
+  )
 );
+Card.displayName = "Card";
+
+export { Card }; 
