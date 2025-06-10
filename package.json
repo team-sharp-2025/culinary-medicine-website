@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "turbo run dev",
-    "build": "turbo run build"
+    "build": "turbo run build",
+    "postinstall": "pnpm --filter @repo/lib generate"
   },
   "keywords": [],
   "author": "",
@@ -23,10 +24,8 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@prisma/client": "^6.9.0",
     "@supabase/supabase-js": "^2.49.10",
-    "@tailwindcss/postcss": "^4.1.8",
-    "prisma": "^6.9.0"
+    "@tailwindcss/postcss": "^4.1.8"
   },
   "workspaces": [
     "apps/*",
