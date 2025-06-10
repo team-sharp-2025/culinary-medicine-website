@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "postinstall": "pnpm --filter db generate"
+    "postinstall": "pnpm --filter @lib prisma generate"
   },
   "keywords": [],
   "author": "",
