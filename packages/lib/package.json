@@ -6,7 +6,7 @@
   "types": "./src/index.ts",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "generate": "prisma generate"
+    "prisma:generate": "prisma generate"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
