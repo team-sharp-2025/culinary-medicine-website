@@ -10,15 +10,16 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({
-  children,
-  type = 'button',
-  variant = 'primary',
-  size = 'md',
-  className = '',
-  onClick,
-  disabled = false,
-}) => {
+const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
+  const {
+    children,
+    type = 'button',
+    variant = 'primary',
+    size = 'md',
+    className = '',
+    onClick,
+    disabled = false,
+  } = props;
   const baseStyles = 'font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variantStyles = {

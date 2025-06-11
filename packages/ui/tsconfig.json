@@ -1,11 +1,15 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@repo/typescript-config/react-library.json",
   "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "noEmit": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
     "jsx": "react-jsx",
-    "moduleResolution": "node",
-    "esModuleInterop": true
-  }
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["react", "react-dom"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }
