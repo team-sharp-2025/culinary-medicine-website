@@ -3,7 +3,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ChevronLeft, Calendar } from 'lucide-react';
 import { blogPosts } from '@/data/blogData';
-import { Button } from '@repo/ui';
+import Button from '../../../../../packages/ui/src/Button';
 
 const BlogDetail: React.FC = () => {
   const params = useParams();
