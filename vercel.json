@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "admin": {
+      "source": "apps/admin",
+      "framework": "nextjs"
+    },
+    "web": {
+      "source": "apps/web",
+      "framework": "nextjs"
+    }
+  }
+}
