@@ -192,7 +192,7 @@ const ContactForm: React.FC = () => {
               <div className="text-center">
                 <Button 
                   type="submit" 
-                  variant="solid" 
+                  variant="primary" 
                   size="lg" 
                   disabled={isSubmitting}
                   className="w-full md:w-auto px-8"
