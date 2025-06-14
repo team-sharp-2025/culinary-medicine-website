@@ -1,0 +1,9 @@
+{
+  "build": {
+    "allowedPackages": [
+      "prisma",
+      "@prisma/client",
+      "@prisma/engines"
+    ]
+  }
+}
