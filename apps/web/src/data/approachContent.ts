@@ -6,7 +6,7 @@ export interface ApproachContent {
 }
 
 export const approachContentMap: Record<string, ApproachContent> = {
-  second_Brain: {
+  second_brain: {
     title: "THE SECOND BRAIN",
     subtitle: "Our approach is built on trusted clinical studies, peer-reviewed research",
     description:
@@ -19,7 +19,7 @@ export const approachContentMap: Record<string, ApproachContent> = {
     ],
   },
 
-  bio_Induviduality: {
+  bio_individuality: {
     title: "BIO-INDIVIDUALITY",
     subtitle: "Every person is unique and deserves a personalized approach",
     description:
@@ -32,7 +32,7 @@ export const approachContentMap: Record<string, ApproachContent> = {
     ],
   },
 
-  culinary_Skills: {
+  culinary_skills: {
     title: "CULINARY SKILLS",
     subtitle: "Empowering health through food and practical cooking knowledge",
     description:
