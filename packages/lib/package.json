@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "generate": "npx prisma generate",
-    "postinstall": "cross-env PRISMA_CLI_BINARY_TARGETS=native,rhel-openssl-3.0.x pnpm generate"
+    "postinstall": "cross-env PRISMA_CLI_BINARY_TARGETS=rhel-openssl-3.0.x,windows pnpm generate"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
