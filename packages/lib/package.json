@@ -6,12 +6,14 @@
   "types": "./src/index.ts",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "generate": "npx prisma generate"
+    "generate": "npx prisma generate",
+    "postinstall": "cross-env PRISMA_CLI_BINARY_TARGETS=native,rhel-openssl-3.0.x pnpm generate"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^20.17.57",
+    "cross-env": "^7.0.3",
     "prisma": "6.9.0",
     "typescript": "^5"
   },
