@@ -4,7 +4,6 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroSection from "@/components/Home/HeroSection";
-import AboutSection from "@/components/Home/AboutSection";
 import BlogSection from "@/components/Home/BlogSection";
 import ContactForm from "@/components/Home/ContactForm";
 import InstagramReels from "@/components/Home/InstagramReels";
@@ -59,7 +58,6 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <HeroSection />
-      <AboutSection />
 
       {/* Features Section */}
       <section ref={featuresRef} className="py-20 bg-white">
@@ -78,8 +76,9 @@ const HomePage: React.FC = () => {
                 THE SECOND BRAIN
               </h3>
               <p className="text-gray-600 text-center">
-                Nourish Your Gut, Nurture Your Mind: How a Healthy Microbiome
-                Fuels Mood and Well-Being.
+                The gut, filled with a diverse microbiome and often called our
+                'second brain,' produces mood-regulating chemicals like serotonin. A balanced gut can
+                enhance mood and reduce cravings for unhealthy foods.
               </p>
               <a
                 href="/approach/second_brain"
@@ -98,8 +97,9 @@ const HomePage: React.FC = () => {
                 BIO-INDIVIDUALITY
               </h3>
               <p className="text-gray-600 text-center">
-                One Size Doesn’t Fit All: Embracing Your Unique Nutritional
-                Blueprint.
+                Each of us processes food differently. While various dietary
+                approaches may be practical, it's essential to tune into our body’s signals and
+                behaviours to discover what truly supports our health and well-being.
               </p>
               <a
                 href="/approach/bio_individuality"
@@ -118,7 +118,9 @@ const HomePage: React.FC = () => {
                 CULINARY SKILLS
               </h3>
               <p className="text-gray-600 text-center">
-                Making Healthy Eating Simple and Delicious.
+                Healthy cooking doesn't have to be dull or time-consuming. With
+                simple techniques and the right ingredients, we can create delicious and nourishing
+                meals.
               </p>
               <a
                 href="/approach/culinary_skills"
@@ -130,7 +132,9 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+      <InstagramReels />
       <BlogSection />
+      <ContactForm />
       {/* Testimonials Section */}
       <section ref={testimonialsRef} className="py-20 bg-teal-50">
         <div className="container mx-auto px-4">
@@ -179,8 +183,6 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
-      <InstagramReels />
-      <ContactForm />
     </div>
   );
 };
