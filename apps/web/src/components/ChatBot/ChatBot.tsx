@@ -38,7 +38,7 @@ const getBotResponse = (userMsg: string): string => {
   if (includesAny(lowerMsg, ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening'])) {
     return "Hello! 😊 I'm here to help you with anything related to Dr. Sunitha's practice. Feel free to ask about timings, services, or how to get in touch!";
   }
-  if (includesAny(lowerMsg, ['timing', 'available', 'working hours', 'hours'])) {
+  if (includesAny(lowerMsg, ['timing', 'available', 'working hours', 'hours', 'availability', 'appointment', 'schedule', 'slots', 'slot'])){
     return "Dr. Sunitha is available for consultations from 🕙 10:00 AM to 5:00 PM, Monday through Friday. Would you like help booking a slot?";
   }
   if (includesAny(lowerMsg, ['services', 'offer', 'treatments', 'specialities'])) {
@@ -53,14 +53,20 @@ const getBotResponse = (userMsg: string): string => {
   if (includesAny(lowerMsg, ['online consultation', 'video call'])) {
     return "Yes! Dr. Sunitha offers online consultations via video call. You can schedule it just like a regular appointment.";
   }
-  if (includesAny(lowerMsg, ['culinary medicine'])) {
+  if (includesAny(lowerMsg, ['culinary', 'culinary medicine', 'science of medicine'])) {
     return "Culinary medicine combines the art of cooking with the science of medicine to help patients heal and thrive using food. 🍎👩‍⚕️";
   }
   if (includesAny(lowerMsg, ['qualifications', 'who is dr. sunitha'])) {
     return "Dr. Sunitha is a certified clinical nutritionist and culinary medicine expert with over 10 years of experience helping patients use food as a form of therapy.";
   }
+  if (includesAny(lowerMsg, ['thank you', 'thanks', 'thankyou', 'thx'])) {
+    return "You're most welcome! 😊 Feel free to reach out anytime if you have more questions.";
+  }
+  if (includesAny(lowerMsg, ['bye', 'goodbye', 'see you', 'talk to you later'])) {
+    return "Take care! 👋 Wishing you good health. I'm here whenever you need assistance.";
+  }
 
-  return "That's a thoughtful question! For detailed or medical-related queries, it's best to connect directly with Dr. Sunitha. You can reach us at 📧 dr.sunitha@example.com or 📞 98765 43210.";
+  return "For detailed or medical-related queries, it's best to connect directly with Dr. Sunitha. You can reach us at 📧 dr.sunitha@example.com or 📞 98765 43210.";
 };
 
   const handleSendMessage = (e: React.FormEvent) => {
