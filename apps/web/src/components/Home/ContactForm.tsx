@@ -13,15 +13,25 @@ const contactSchema = z.object({
     .min(2, 'Name must be at least 2 characters')
     .max(50, 'Name must be less than 50 characters')
     .regex(/^[A-Za-z\s]+$/, 'Name must contain only letters and spaces'),
+
   email: z.string()
     .min(1, 'Email is required')
     .email('Please enter a valid email'),
+
   phone: z.string()
-    .min(1, 'Phone number is required')
-    .regex(/^[0-9]{10}$/, 'Phone number must be 10 digits'),
+    .optional()
+    .refine(val => !val || /^[0-9]{10}$/.test(val), {
+      message: 'Phone number must be 10 digits',
+    }),
+
   message: z.string()
-    .min(10, 'Message must be at least 10 characters')
-    .max(500, 'Message must be less than 500 characters'),
+    .optional()
+    .refine(val => !val || val.length >= 10, {
+      message: 'Message must be at least 10 characters',
+    })
+    .refine(val => !val || val.length <= 500, {
+      message: 'Message must be less than 500 characters',
+    }),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
