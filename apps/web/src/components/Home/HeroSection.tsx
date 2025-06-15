@@ -30,7 +30,7 @@ const HeroSection: React.FC = () => {
       <div className="container mx-auto px-4 py-12 md:py-20">
         <div className="flex flex-col md:flex-row items-center">
           {/* Text Content */}
-          <div 
+          <div
             ref={textContentRef}
             className="md:w-1/2 text-center md:text-left md:pr-8 mb-8 md:mb-0"
           >
@@ -45,23 +45,23 @@ const HeroSection: React.FC = () => {
               <Button variant="outline" size="lg">Learn More</Button>
             </div> */}
           </div>
-          
+
           {/* Image */}
           <div 
             ref={imageRef}
             className="md:w-1/2"
           >
             <div className="relative rounded-full overflow-hidden bg-teal-100 p-3 mx-auto" style={{ maxWidth: '400px' }}>
-              <img 
-                src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                alt="Doctor in kitchen" 
+              <img
+                src="/sunitha_balasubramaniam_profile_pic.jpeg" 
+                alt="Doctor in kitchen"
                 className="w-full h-auto rounded-full object-cover aspect-square"
               />
             </div>
           </div>
         </div>
       </div>
-      
+
       {/* Floating decorative elements */}
       <div className="hidden md:block absolute -top-12 -right-12 w-40 h-40 bg-teal-200 rounded-full opacity-20"></div>
       
