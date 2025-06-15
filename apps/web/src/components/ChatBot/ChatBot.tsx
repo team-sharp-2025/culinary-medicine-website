@@ -11,66 +11,93 @@ const ChatBot: React.FC = () => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([
     {
       id: '1',
-      message: 'Hello! I\'m Dr. Sunitha\'s virtual assistant. How can I help you with your culinary medicine questions today?',
+      message: "Hi there! I'm Dr. Sunitha's assistant. You can ask about consultation timings, services, or location.",
       sender: 'bot',
-      timestamp: new Date()
-    }
+      timestamp: new Date(),
+    },
   ]);
-  
+
   const messageEndRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     if (isOpen) {
       messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [chatHistory, isOpen]);
-  
+
   const toggleChat = () => {
     setIsOpen(!isOpen);
   };
-  
+
+const getBotResponse = (userMsg: string): string => {
+  const lowerMsg = userMsg.toLowerCase();
+
+  const includesAny = (text: string, keywords: string[]) =>
+    keywords.some((keyword) => text.includes(keyword));
+
+  if (includesAny(lowerMsg, ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening'])) {
+    return "Hello! 😊 I'm here to help you with anything related to Dr. Sunitha's practice. Feel free to ask about timings, services, or how to get in touch!";
+  }
+  if (includesAny(lowerMsg, ['timing', 'available', 'working hours', 'hours', 'availability', 'appointment', 'schedule', 'slots', 'slot'])){
+    return "Dr. Sunitha is available for consultations from 🕙 10:00 AM to 5:00 PM, Monday through Friday. Would you like help booking a slot?";
+  }
+  if (includesAny(lowerMsg, ['services', 'offer', 'treatments', 'specialities'])) {
+    return "We offer personalized nutrition consultations, therapeutic meal planning, and culinary medicine guidance tailored to your health goals. 🍲✨";
+  }
+  if (includesAny(lowerMsg, ['location', 'where are you', 'address', 'clinic'])) {
+    return "Our clinic is located at 123 Wellness Street, Coimbatore 📍. Need directions or parking info?";
+  }
+  if (includesAny(lowerMsg, ['consultation charges', 'fees', 'price'])) {
+    return "A standard consultation with Dr. Sunitha costs ₹800. Follow-up sessions are ₹500. Let us know if you need help booking!";
+  }
+  if (includesAny(lowerMsg, ['online consultation', 'video call'])) {
+    return "Yes! Dr. Sunitha offers online consultations via video call. You can schedule it just like a regular appointment.";
+  }
+  if (includesAny(lowerMsg, ['culinary', 'culinary medicine', 'science of medicine'])) {
+    return "Culinary medicine combines the art of cooking with the science of medicine to help patients heal and thrive using food. 🍎👩‍⚕️";
+  }
+  if (includesAny(lowerMsg, ['qualifications', 'who is dr. sunitha'])) {
+    return "Dr. Sunitha is a certified clinical nutritionist and culinary medicine expert with over 10 years of experience helping patients use food as a form of therapy.";
+  }
+  if (includesAny(lowerMsg, ['thank you', 'thanks', 'thankyou', 'thx'])) {
+    return "You're most welcome! 😊 Feel free to reach out anytime if you have more questions.";
+  }
+  if (includesAny(lowerMsg, ['bye', 'goodbye', 'see you', 'talk to you later'])) {
+    return "Take care! 👋 Wishing you good health. I'm here whenever you need assistance.";
+  }
+
+  return "For detailed or medical-related queries, it's best to connect directly with Dr. Sunitha. You can reach us at 📧 dr.sunitha@example.com or 📞 98765 43210.";
+};
+
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (message.trim() === '') return;
-    
-    // Add user message to chat history
+
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
       message: message.trim(),
       sender: 'user',
-      timestamp: new Date()
+      timestamp: new Date(),
     };
-    
-    setChatHistory(prev => [...prev, userMessage]);
+
+    setChatHistory((prev) => [...prev, userMessage]);
     setMessage('');
-    
-    // Simulate bot response after a delay
+
     setTimeout(() => {
-      const botResponses = [
-        "Thanks for your question! Dr. Sunitha recommends focusing on whole foods that are minimally processed.",
-        "That's a great question about nutrition. I'd suggest scheduling a consultation for personalized advice.",
-        "Many patients find success with plant-forward meals. Would you like some recipe suggestions?",
-        "Culinary medicine is all about using food as a tool for better health. Is there a specific health concern you'd like to address?",
-        "Dr. Sunitha has written about this topic on our blog. Would you like me to share a link?"
-      ];
-      
-      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
-      
       const botReply: ChatMessage = {
         id: (Date.now() + 100).toString(),
-        message: randomResponse,
+        message: getBotResponse(userMessage.message),
         sender: 'bot',
-        timestamp: new Date()
+        timestamp: new Date(),
       };
-      
-      setChatHistory(prev => [...prev, botReply]);
-    }, 1000);
+
+      setChatHistory((prev) => [...prev, botReply]);
+    }, 800);
   };
-  
+
   return (
     <>
-      {/* Chat button */}
       <div className="fixed bottom-6 right-6 z-40">
         <button
           onClick={toggleChat}
@@ -80,8 +107,7 @@ const ChatBot: React.FC = () => {
           {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
         </button>
       </div>
-      
-      {/* Chat window */}
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -103,22 +129,18 @@ const ChatBot: React.FC = () => {
                 <X size={20} />
               </button>
             </div>
-            
-            {/* Chat messages */}
+
             <div className="p-4 h-80 overflow-y-auto bg-gray-50">
               {chatHistory.map((chat) => (
                 <div
                   key={chat.id}
-                  className={`mb-3 ${
-                    chat.sender === 'user' ? 'text-right' : 'text-left'
-                  }`}
+                  className={`mb-3 ${chat.sender === 'user' ? 'text-right' : 'text-left'}`}
                 >
                   <div
-                    className={`inline-block rounded-lg px-4 py-2 max-w-[80%] ${
-                      chat.sender === 'user'
-                        ? 'bg-teal-600 text-white'
-                        : 'bg-white text-gray-800 border border-gray-200'
-                    }`}
+                    className={`inline-block rounded-lg px-4 py-2 max-w-[80%] ${chat.sender === 'user'
+                      ? 'bg-teal-600 text-white'
+                      : 'bg-white text-gray-800 border border-gray-200'
+                      }`}
                   >
                     <p className="text-sm">{chat.message}</p>
                   </div>
@@ -129,8 +151,7 @@ const ChatBot: React.FC = () => {
               ))}
               <div ref={messageEndRef} />
             </div>
-            
-            {/* Chat input */}
+
             <form onSubmit={handleSendMessage} className="border-t border-gray-200 p-3 flex items-center">
               <input
                 type="text"
