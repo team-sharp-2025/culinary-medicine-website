@@ -1,52 +1,54 @@
-'use client';
-import React from 'react';
-import { useParams } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { approachContentMap } from '@/data/approachContent';
+import { approachContentMap } from "@/data/approachContent";
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
+// import { motion } from "framer-motion";
+import { MotionHeader } from "../../../components/Approach/MotionHeader";
 
-const ApproachSlugPage = () => {
-  const params = useParams();
-  const slug = params?.slug as string;
+// SEO Metadata (Optional but recommended)
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const content = approachContentMap[params.slug];
 
+  if (!content) {
+    return {
+      title: "Unknown Approach",
+      description: "This approach type does not exist.",
+    };
+  }
+
+  return {
+    title: content.title,
+    description: content.subtitle,
+  };
+}
+
+// Static generation (optional if you want SSR only)
+export async function generateStaticParams() {
+  return Object.keys(approachContentMap).map((slug) => ({ slug }));
+}
+
+// Main Page Component
+export default function ApproachSlugPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const slug = params.slug;
   const content = approachContentMap[slug];
 
   if (!content) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-center text-red-600">
-        Invalid approach type: "{slug}"
-      </div>
-    );
+    notFound();
   }
 
   return (
     <div className="min-h-screen pt-16 md:pt-20 bg-white">
       {/* Gradient Header */}
       <div className="relative bg-gradient-to-r from-teal-500 to-blue-500 py-12 md:py-16">
-        {/* <a
-          href="/"
-          className="absolute top-4 left-4 px-4 py-2 bg-emerald-400 hover:bg-emerald-500 text-white rounded-md text-sm shadow transition-all"
-        >
-          Back to Home
-        </a> */}
-
-        <div className="container mx-auto px-4 text-center">
-          <motion.h1
-            className="font-serif text-3xl md:text-4xl font-bold text-white mb-4 flex items-center justify-center gap-3"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {content.title}
-          </motion.h1>
-          <motion.p
-            className="text-teal-50 max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            {content.subtitle}
-          </motion.p>
-        </div>
+        <MotionHeader title={content.title} subtitle={content.subtitle} />
       </div>
 
       {/* Description and Images */}
@@ -56,14 +58,18 @@ const ApproachSlugPage = () => {
         </p>
 
         <div className="w-36 h-1 bg-emerald-400 mx-auto rounded-full mb-4" />
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">Certificates</h2>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+          Certificates
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
           {content.images.map((src, idx) => (
-            <img
+            <Image
               key={idx}
               src={src}
               alt={`Approach visual ${idx + 1}`}
+              width={400}
+              height={300}
               className="w-full h-auto shadow-md"
             />
           ))}
@@ -71,6 +77,4 @@ const ApproachSlugPage = () => {
       </div>
     </div>
   );
-};
-
-export default ApproachSlugPage;
+}

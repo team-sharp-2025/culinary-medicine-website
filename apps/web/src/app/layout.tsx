@@ -4,6 +4,7 @@ import Header from '../components/Layout/Header';
 import Footer from '../components/Layout/Footer';
 import ChatBot from '../components/ChatBot/ChatBot';
 import "./globals.css";
+import InstagramScriptLoader from '../components/Layout/InstagramScriptLoader';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <InstagramScriptLoader />
         <div className="flex flex-col min-h-screen">
           <Header />
           <main className="flex-grow">
