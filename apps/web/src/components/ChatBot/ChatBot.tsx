@@ -38,7 +38,7 @@ const getBotResponse = (userMsg: string): string => {
   if (includesAny(lowerMsg, ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening'])) {
     return "Hello! 😊 I'm here to help you with anything related to Dr. Sunitha's practice. Feel free to ask about timings, services, or how to get in touch!";
   }
-  if (includesAny(lowerMsg, ['timing', 'available', 'working hours', 'hours'])) {
+  if (includesAny(lowerMsg, ['timing', 'available', 'working hours', 'hours', 'availability', 'appointment', 'schedule', 'slots', 'slot'])){
     return "Dr. Sunitha is available for consultations from 🕙 10:00 AM to 5:00 PM, Monday through Friday. Would you like help booking a slot?";
   }
   if (includesAny(lowerMsg, ['services', 'offer', 'treatments', 'specialities'])) {
@@ -53,7 +53,7 @@ const getBotResponse = (userMsg: string): string => {
   if (includesAny(lowerMsg, ['online consultation', 'video call'])) {
     return "Yes! Dr. Sunitha offers online consultations via video call. You can schedule it just like a regular appointment.";
   }
-  if (includesAny(lowerMsg, ['culinary medicine'])) {
+  if (includesAny(lowerMsg, ['culinary', 'culinary medicine', 'science of medicine'])) {
     return "Culinary medicine combines the art of cooking with the science of medicine to help patients heal and thrive using food. 🍎👩‍⚕️";
   }
   if (includesAny(lowerMsg, ['qualifications', 'who is dr. sunitha'])) {
