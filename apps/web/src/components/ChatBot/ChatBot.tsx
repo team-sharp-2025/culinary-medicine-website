@@ -59,8 +59,14 @@ const getBotResponse = (userMsg: string): string => {
   if (includesAny(lowerMsg, ['qualifications', 'who is dr. sunitha'])) {
     return "Dr. Sunitha is a certified clinical nutritionist and culinary medicine expert with over 10 years of experience helping patients use food as a form of therapy.";
   }
+  if (includesAny(lowerMsg, ['thank you', 'thanks', 'thankyou', 'thx'])) {
+    return "You're most welcome! 😊 Feel free to reach out anytime if you have more questions.";
+  }
+  if (includesAny(lowerMsg, ['bye', 'goodbye', 'see you', 'talk to you later'])) {
+    return "Take care! 👋 Wishing you good health. I'm here whenever you need assistance.";
+  }
 
-  return "That's a thoughtful question! For detailed or medical-related queries, it's best to connect directly with Dr. Sunitha. You can reach us at 📧 dr.sunitha@example.com or 📞 98765 43210.";
+  return "For detailed or medical-related queries, it's best to connect directly with Dr. Sunitha. You can reach us at 📧 dr.sunitha@example.com or 📞 98765 43210.";
 };
 
   const handleSendMessage = (e: React.FormEvent) => {
