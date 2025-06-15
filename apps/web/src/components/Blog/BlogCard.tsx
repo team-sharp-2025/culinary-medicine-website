@@ -54,7 +54,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-4 pb-4 text-sm text-orange-500 font-medium group-hover:underline">
+        <div className="px-4 pb-4 text-sm text-teal-600 font-medium group-hover:underline">
           Continue reading...
         </div>
       </div>

@@ -1,5 +1,8 @@
-import { notFound } from "next/navigation";
-import { Metadata } from "next";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useParams, notFound } from "next/navigation";
+import { BarLoader } from "@repo/ui"; // or your loader component
 
 interface Blog {
   id: number;
@@ -9,44 +12,55 @@ interface Blog {
   createdAt: string;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const id = params.slug.split("-").pop();
-  const res = await fetch(`/api/blogs/${id}`, {
-    cache: "no-store",
-  });
-  const data = await res.json();
+const BlogDetailPage: React.FC = () => {
+  const params = useParams();
+  const [blog, setBlog] = useState<Blog | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  if (!data.success) return { title: "Blog Not Found" };
+  const id = params?.slug?.toString().split("-").pop();
 
-  return {
-    title: `${data.response.title} | Culinary Medicine`,
-    description: data.response.content.slice(0, 150),
-  };
-}
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const res = await fetch(`/api/blogs/${id}`);
+        const data = await res.json();
 
-export default async function BlogDetailPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const id = params.slug.split("-").pop();
+        if (!data.success) {
+          setError(true);
+        } else {
+          setBlog(data.response);
+        }
+      } catch (err) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const res = await fetch(`http://localhost:3001/api/blogs/${id}`, {
-    cache: "no-store",
-  });
-  const data = await res.json();
+    if (id) fetchBlog();
+  }, [id]);
 
-  if (!data.success) return notFound();
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <BarLoader />
+      </div>
+    );
+  }
 
-  const blog: Blog = data.response;
+  if (error || !blog) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-red-600 text-lg">
+        Blog not found.
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pt-16 md:pt-20">
-      <div className="bg-gradient-to-r from-emerald-600 to-lime-500 py-12 md:py-20">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-teal-500 to-blue-500 py-12 md:py-20">
         <div className="container mx-auto px-4 text-center text-white">
           <h1 className="font-serif text-3xl md:text-5xl font-bold mb-4">
             {blog.title}
@@ -57,6 +71,7 @@ export default async function BlogDetailPage({
         </div>
       </div>
 
+      {/* Content */}
       <div className="container mx-auto px-4 py-12 max-w-3xl">
         {blog.imageUrl && (
           <img
@@ -69,4 +84,6 @@ export default async function BlogDetailPage({
       </div>
     </div>
   );
-}
+};
+
+export default BlogDetailPage;

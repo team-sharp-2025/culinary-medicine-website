@@ -73,7 +73,7 @@ const BlogsPage: React.FC = () => {
   return (
     <div className="min-h-screen pt-16 md:pt-20">
       {/* Header */}
-      <div className="bg-gradient-to-r from-yellow-500 to-orange-500 py-12 md:py-20">
+      <div className="bg-gradient-to-r from-teal-500 to-blue-500 py-12 md:py-20">
         <div className="container mx-auto px-4 text-center">
           <motion.h1
             className="font-serif text-3xl md:text-4xl font-bold text-white mb-4"

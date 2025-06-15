@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroSection from "@/components/Home/HeroSection";
 import AboutSection from "@/components/Home/AboutSection";
+import BlogSection from "@/components/Home/BlogSection";
 import ContactForm from "@/components/Home/ContactForm";
 import InstagramReels from "@/components/Home/InstagramReels";
 import { BookOpen, UserCheck, Award } from "lucide-react";
@@ -129,7 +130,7 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
-
+      <BlogSection />
       {/* Testimonials Section */}
       <section ref={testimonialsRef} className="py-20 bg-teal-50">
         <div className="container mx-auto px-4">
