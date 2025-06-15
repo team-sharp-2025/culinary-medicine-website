@@ -1,47 +1,64 @@
-import React from 'react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { BlogPost } from '@/data/blogData';
+"use client";
+
+import React from "react";
+import Link from "next/link";
 
 interface BlogCardProps {
-  blog: BlogPost;
-  index: number;
+  id: number;
+  title: string;
+  createdAt: string;
+  imageUrl: string | null;
 }
 
-const BlogCard: React.FC<BlogCardProps> = ({ blog, index }) => {
+const slugify = (text: string | undefined) =>
+  text
+    ? text
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w\-]+/g, "")
+    : "untitled";
+
+const BlogCard: React.FC<BlogCardProps> = ({
+  id,
+  title,
+  createdAt,
+  imageUrl,
+}) => {
+  const slug = `${slugify(title)}-${id}`;
+  const formattedDate = new Date(createdAt).toLocaleDateString();
+
   return (
-    <motion.div
-      className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      viewport={{ once: true }}
-    >
-      <Link href={`/blog/${blog.id}`}>
-        <div className="relative h-48 overflow-hidden">
-          <img
-            src={blog.imageUrl}
-            alt={blog.title}
-            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-          />
-          <div className="absolute bottom-0 left-0 bg-teal-600 text-white px-3 py-1 text-sm font-medium">
-            {blog.date}
+    <Link href={`/blog/${slug}`} passHref>
+      <div className="group cursor-pointer bg-white shadow-md hover:shadow-xl transition-shadow duration-300 rounded-xl overflow-hidden flex flex-col h-full">
+        {/* Image */}
+        {imageUrl && (
+          <div className="relative w-full h-48 overflow-hidden">
+            <img
+              src={imageUrl}
+              alt={title}
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
           </div>
+        )}
+
+        {/* Date strip */}
+        <div className="bg-yellow-100 text-yellow-800 text-xs px-3 py-2 font-semibold">
+          {formattedDate}
         </div>
-        
-        <div className="p-5">
-          <h3 className="font-serif text-xl font-bold text-gray-800 mb-3 line-clamp-2">
-            {blog.title}
-          </h3>
-          <p className="text-gray-600 mb-3 line-clamp-3">{blog.excerpt}</p>
-          <div className="flex justify-between items-center mt-4">
-            <span className="inline-block text-teal-600 font-medium text-sm hover:text-teal-700 transition-colors">
-              Continue Reading
-            </span>
-          </div>
+
+        {/* Title */}
+        <div className="p-4 flex-1">
+          <h2 className="text-lg font-semibold text-gray-800 group-hover:text-orange-600 transition-colors duration-200">
+            {title}
+          </h2>
         </div>
-      </Link>
-    </motion.div>
+
+        {/* Footer */}
+        <div className="px-4 pb-4 text-sm text-orange-500 font-medium group-hover:underline">
+          Continue reading...
+        </div>
+      </div>
+    </Link>
   );
 };
 
