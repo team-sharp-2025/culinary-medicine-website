@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeroSection from '@/components/Home/HeroSection';
 import AboutSection from '@/components/Home/AboutSection';
 import ContactForm from '@/components/Home/ContactForm';
+import InstagramReels from '@/components/Home/InstagramReels';
 import { BookOpen, UserCheck, Award } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -151,7 +152,7 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
-      
+      <InstagramReels />
       <ContactForm />
     </div>
   );
