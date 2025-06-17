@@ -72,21 +72,10 @@ const BlogSection: React.FC = () => {
 
   const settings = {
     dots: false,
-    arrows: true,
     infinite: blogs.length > 3,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    nextArrow: (
-      <SlickArrow className="right-0 md:-right-6">
-        <ChevronRight size={32} className="text-gray-600 hover:text-black" />
-      </SlickArrow>
-    ),
-    prevArrow: (
-      <SlickArrow className="left-0 md:-left-6">
-        <ChevronLeft size={32} className="text-gray-600 hover:text-black" />
-      </SlickArrow>
-    ),
     responsive: [
       { breakpoint: 1280, settings: { slidesToShow: 3 } },
       { breakpoint: 1024, settings: { slidesToShow: 2 } },
