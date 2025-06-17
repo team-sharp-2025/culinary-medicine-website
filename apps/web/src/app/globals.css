@@ -69,3 +69,23 @@ body {
 .slick-arrow {
   z-index: 20;
 }
+
+.slick-prev,
+.slick-next {
+  width: 45px;
+  height: 45px;
+}
+
+.slick-prev::before,
+.slick-next::before {
+  color: black;
+  font-size: 30px;
+}
+
+.slick-prev {
+  left: -40px;
+}
+
+.slick-next {
+  right: -40px;
+}

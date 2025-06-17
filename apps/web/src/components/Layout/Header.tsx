@@ -59,7 +59,7 @@ const Header = () => {
                 className="rounded-full"
               />
               <span className="font-serif text-xl md:text-3xl font-semibold">
-                Culinary Medicine
+                Sun Community
               </span>
             </Link>
           </div>

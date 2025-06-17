@@ -58,11 +58,8 @@ export default function ApproachSlugPage({
         </p>
 
         <div className="w-36 h-1 bg-emerald-400 mx-auto rounded-full mb-4" />
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-          Certificates
-        </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6 pt-6">
           {content.images.map((src, idx) => (
             <Image
               key={idx}
