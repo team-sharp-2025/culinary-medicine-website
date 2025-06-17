@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Slider from "react-slick";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -39,8 +39,12 @@ const BlogSection: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [error, setError] = useState<string | null>(null);
+  const didFetchRef = useRef(false); // Prevent duplicate API calls
 
   useEffect(() => {
+    if (didFetchRef.current) return;
+    didFetchRef.current = true;
+
     const fetchBlogs = async () => {
       try {
         setLoading(true);
@@ -84,18 +88,9 @@ const BlogSection: React.FC = () => {
       </SlickArrow>
     ),
     responsive: [
-      {
-        breakpoint: 1280,
-        settings: { slidesToShow: 3 },
-      },
-      {
-        breakpoint: 1024,
-        settings: { slidesToShow: 2 },
-      },
-      {
-        breakpoint: 768,
-        settings: { slidesToShow: 1, arrows: false },
-      },
+      { breakpoint: 1280, settings: { slidesToShow: 3 } },
+      { breakpoint: 1024, settings: { slidesToShow: 2 } },
+      { breakpoint: 768, settings: { slidesToShow: 1, arrows: false } },
     ],
   };
 
