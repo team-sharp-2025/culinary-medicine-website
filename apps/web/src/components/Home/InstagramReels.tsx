@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { BarLoader } from "@repo/ui";
 
@@ -11,8 +13,12 @@ interface Reel {
 export default function InstagramReels() {
   const [reels, setReels] = useState<Reel[]>([]);
   const [loading, setLoading] = useState(true);
+  const didFetchRef = useRef(false); // Prevent duplicate API calls
 
   useEffect(() => {
+    if (didFetchRef.current) return;
+    didFetchRef.current = true;
+
     const loadInstagramScript = () => {
       if (!(window as any).instgrm) {
         const script = document.createElement("script");
