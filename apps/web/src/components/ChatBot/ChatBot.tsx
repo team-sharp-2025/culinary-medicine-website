@@ -11,7 +11,7 @@ const ChatBot: React.FC = () => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([
     {
       id: '1',
-      message: "Hi there! I'm Dr. Sunitha's assistant. You can ask about consultation timings, services, or location.",
+      message: "Hi there! I'm Mrs.Sunitha's assistant. You can ask about consultation timings, services, or location.",
       sender: 'bot',
       timestamp: new Date(),
     },
@@ -36,10 +36,10 @@ const getBotResponse = (userMsg: string): string => {
     keywords.some((keyword) => text.includes(keyword));
 
   if (includesAny(lowerMsg, ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening'])) {
-    return "Hello! 😊 I'm here to help you with anything related to Dr. Sunitha's practice. Feel free to ask about timings, services, or how to get in touch!";
+    return "Hello! 😊 I'm here to help you with anything related to Mrs.Sunitha's practice. Feel free to ask about timings, services, or how to get in touch!";
   }
   if (includesAny(lowerMsg, ['timing', 'available', 'working hours', 'hours', 'availability', 'appointment', 'schedule', 'slots', 'slot'])){
-    return "Dr. Sunitha is available for consultations from 🕙 10:00 AM to 5:00 PM, Monday through Friday. Would you like help booking a slot?";
+    return "Mrs.Sunitha is available for consultations from 🕙 10:00 AM to 5:00 PM, Monday through Friday. Would you like help booking a slot?";
   }
   if (includesAny(lowerMsg, ['services', 'offer', 'treatments', 'specialities'])) {
     return "We offer personalized nutrition consultations, therapeutic meal planning, and culinary medicine guidance tailored to your health goals. 🍲✨";
@@ -47,17 +47,14 @@ const getBotResponse = (userMsg: string): string => {
   if (includesAny(lowerMsg, ['location', 'where are you', 'address', 'clinic'])) {
     return "Our clinic is located at 123 Wellness Street, Coimbatore 📍. Need directions or parking info?";
   }
-  if (includesAny(lowerMsg, ['consultation charges', 'fees', 'price'])) {
-    return "A standard consultation with Dr. Sunitha costs ₹800. Follow-up sessions are ₹500. Let us know if you need help booking!";
-  }
   if (includesAny(lowerMsg, ['online consultation', 'video call'])) {
-    return "Yes! Dr. Sunitha offers online consultations via video call. You can schedule it just like a regular appointment.";
+    return "Yes! Mrs.Sunitha offers online consultations via video call. You can schedule it just like a regular appointment.";
   }
   if (includesAny(lowerMsg, ['culinary', 'culinary medicine', 'science of medicine'])) {
     return "Culinary medicine combines the art of cooking with the science of medicine to help patients heal and thrive using food. 🍎👩‍⚕️";
   }
-  if (includesAny(lowerMsg, ['qualifications', 'who is dr. sunitha'])) {
-    return "Dr. Sunitha is a certified clinical nutritionist and culinary medicine expert with over 10 years of experience helping patients use food as a form of therapy.";
+  if (includesAny(lowerMsg, ['qualifications', 'who is Mrs.sunitha'])) {
+    return "Mrs.Sunitha is a certified clinical nutritionist and culinary medicine expert with over 10 years of experience helping patients use food as a form of therapy.";
   }
   if (includesAny(lowerMsg, ['thank you', 'thanks', 'thankyou', 'thx'])) {
     return "You're most welcome! 😊 Feel free to reach out anytime if you have more questions.";
@@ -66,7 +63,7 @@ const getBotResponse = (userMsg: string): string => {
     return "Take care! 👋 Wishing you good health. I'm here whenever you need assistance.";
   }
 
-  return "For detailed or medical-related queries, it's best to connect directly with Dr. Sunitha. You can reach us at 📧 dr.sunitha@example.com or 📞 98765 43210.";
+  return "For detailed or medical-related queries, it's best to connect directly with Mrs.Sunitha. You can reach us at 📧 dr.sunitha@example.com or 📞 98765 43210.";
 };
 
   const handleSendMessage = (e: React.FormEvent) => {
