@@ -155,7 +155,7 @@ const HomePage: React.FC = () => {
                 </div>
               </div>
               <p className="text-gray-600 italic text-lg">
-                "After just 3 months of following Dr. Sunitha's culinary
+                "After just 3 months of following Mrs.Sunitha's culinary
                 medicine program, my A1C dropped from 8.2 to 6.4, and I've
                 reduced my medication. The recipes are delicious and easy to
                 make!"
@@ -174,7 +174,7 @@ const HomePage: React.FC = () => {
                 </div>
               </div>
               <p className="text-gray-600 italic text-lg">
-                "I've struggled with inflammation for years. Dr. Sunitha helped
+                "I've struggled with inflammation for years. Mrs.Sunitha helped
                 me identify my trigger foods and create a sustainable eating
                 plan. My symptoms have improved significantly, and I finally
                 feel in control."

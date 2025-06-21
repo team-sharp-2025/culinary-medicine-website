@@ -62,7 +62,7 @@ export default function InstagramReels() {
     <section className="bg-[#f9fafb] py-10 px-4">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
-          Instagram Reels
+          Reel Highlights
         </h2>
 
         {loading ? (
