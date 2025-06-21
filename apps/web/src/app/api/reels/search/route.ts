@@ -1,23 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ApiResponse } from '../../../../../../../packages/lib/src/ApiResponse';
-import { reelService } from '../../../../../../../packages/lib/src/services/reelService';
+import { supabase } from '../../../../../../../packages/lib/src/supabaseClient';
 
 export async function POST(req: NextRequest) {
-    try {
-        const { page = 1, size = 10, searchTerm = '' } = await req.json();
-        const skip = (page - 1) * size;
+  try {
+    const { page = 1, size = 10, searchTerm = '' } = await req.json()
+    const from = (page - 1) * size
+    const to = from + size - 1
 
-        const [reels, total] = await Promise.all([
-            reelService.getPaginated(skip, size, searchTerm),
-            reelService.countAll(searchTerm),
-        ]);
+    const { data: reels, error, count } = await supabase
+      .from('Reel')
+      .select('*', { count: 'exact' })
+      .ilike('title', `${searchTerm}%`) // case-insensitive search
+      .order('createdAt', { ascending: false })
+      .range(from, to)
 
-        return NextResponse.json(
-            ApiResponse.success({ reels, total, page, size }),
-            { status: 200 }
-        );
-    } catch (error) {
-        console.error("Error in reel search:", error);
-        return NextResponse.json(ApiResponse.error('Failed to fetch reels'), { status: 500 });
-    }
+    if (error) throw error
+
+    return NextResponse.json(
+      ApiResponse.success({ reels, total: count, page, size }),
+      { status: 200 }
+    )
+  } catch (error) {
+    console.error('Error in reel search:', error)
+    return NextResponse.json(ApiResponse.error('Failed to fetch reels'), { status: 500 })
+  }
 }

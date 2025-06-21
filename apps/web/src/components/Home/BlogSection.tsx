@@ -51,7 +51,7 @@ const BlogSection: React.FC = () => {
         const res = await fetch("/api/blogs/search", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ page, size: 10, searchTerm: "" }),
+          body: JSON.stringify({ page, size: 3, searchTerm: "" }),
         });
 
         const data = await res.json();
