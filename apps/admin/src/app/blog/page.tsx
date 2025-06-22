@@ -20,17 +20,23 @@ const AdminBlogPage = () => {
   const [page, setPage] = useState(1);
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [content, setContent] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [editId, setEditId] = useState<number | null>(null);
 
   const resetForm = () => {
     setShowForm(false);
     setTitle("");
-    setDescription("");
+    setContent("");
     setImageFile(null);
     setEditId(null);
   };
+
+  const getBlogData = async (id: number) => {
+    const blogRes = await fetch(`/api/blogs/${id}`, { method: "GET" });
+    const blogData = await blogRes.json();
+    return blogData;
+  }
 
   const fetchBlogs = async (page: number) => {
     setLoading(true);
@@ -59,7 +65,7 @@ const AdminBlogPage = () => {
   };
 
   const handleBlogSubmit = async () => {
-    if (!title || !description) {
+    if (!title || !content) {
       toast.error("Please fill in all fields.");
       return;
     }
@@ -79,12 +85,29 @@ const AdminBlogPage = () => {
       }
 
       const method = editId ? "PUT" : "POST";
-      const url = editId ? `/api/blogs/update/${editId}` : "/api/blogs/create";
+      const url = editId ? `/api/blogs/${editId}` : "/api/blogs";
+
+      if (editId && !imageUrl) {
+        const blogData = await getBlogData(editId);
+        if (!blogData || !blogData.response.imageUrl) {
+          toast.error("Failed to retrieve blog image.");
+          return;
+        }
+        imageUrl = blogData.response.imageUrl || "";
+        const filePath = getFilePath(blogData);
+        const { error: deleteError } = await supabase.storage.from("blog-images").remove([filePath]);
+
+        if (deleteError) {
+          console.error("Image delete error:", deleteError);
+          toast.error("Failed to delete blog image.");
+          return;
+        }
+      }
 
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, description, imageUrl }),
+        body: JSON.stringify({ title, content, imageUrl }),
       });
 
       const result = await res.json();
@@ -108,11 +131,25 @@ const AdminBlogPage = () => {
     if (!confirmed) return;
 
     try {
+      const blogData = await getBlogData(id);
+      if (!blogData || !blogData.response.imageUrl) {
+        toast.error("Failed to retrieve blog image.");
+        return;
+      }
+      const filePath = getFilePath(blogData);
+      const { error: deleteError } = await supabase.storage.from("blog-images").remove([filePath]);
+
+      if (deleteError) {
+        console.error("Image delete error:", deleteError);
+        toast.error("Failed to delete blog image.");
+        return;
+      }
+
       const res = await fetch(`/api/blogs/${id}`, { method: "DELETE" });
       const data = await res.json();
       if (data.success) {
         toast.success("Blog deleted successfully");
-        setPage(1); // Refresh from beginning
+        setPage(1);
         fetchBlogs(1);
       } else {
         toast.error("Failed to delete the blog");
@@ -123,6 +160,15 @@ const AdminBlogPage = () => {
     }
   };
 
+
+  const getFilePath = (blogData: any) => {
+    const imageUrl: string = blogData.response.imageUrl;
+    const publicPrefix = `${process.env.NEXT_PUBLIC_SUPABASE_URL}` + `/storage/v1/object/public/blog-images/`;
+    const filePath = imageUrl.replace(publicPrefix, "");
+    return filePath;
+  }
+
+
   const handleEdit = async (id: number) => {
     try {
       const res = await fetch(`/api/blogs/${id}`);
@@ -130,7 +176,7 @@ const AdminBlogPage = () => {
       if (data.success) {
         const blog = data.response;
         setTitle(blog.title);
-        setDescription(blog.content || "");
+        setContent(blog.content || "");
         setEditId(id);
         setShowForm(true);
       } else {
@@ -180,8 +226,8 @@ const AdminBlogPage = () => {
 
             <textarea
               placeholder="Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
               rows={5}
               className="w-full border px-4 py-2 rounded mb-4"
             />
