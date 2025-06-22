@@ -1,49 +1,27 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { FaUserCircle, FaChevronDown } from "react-icons/fa";
 import logoImage from "../../../public/Logo.jpeg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
-
   const pathname = usePathname();
   const router = useRouter();
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setShowDropdown(false);
-      }
-    };
-
     document.addEventListener("scroll", handleScroll);
-    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setUserId(localStorage.getItem("userId"));
-    }
   }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -104,30 +82,13 @@ const Header = () => {
               </Link>
             ))}
 
-            {/* Profile Dropdown */}
-            <div className="relative" ref={dropdownRef}>
-              <div
-                onClick={() => setShowDropdown((prev) => !prev)}
-                className="flex items-center gap-2 cursor-pointer bg-white px-3 py-2 rounded-lg shadow-sm hover:shadow-md transition"
-              >
-                <FaUserCircle className="text-2xl text-gray-700" />
-                <span className="text-gray-800 font-medium">
-                  {userId || "User"}
-                </span>
-                <FaChevronDown className="text-sm mt-1" />
-              </div>
-
-              {showDropdown && (
-                <div className="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg py-2 z-50 border">
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 text-red-600"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
+            {/* Logout Button */}
+            <button
+              onClick={handleLogout}
+              className="text-sm text-red-600 font-medium bg-white px-4 py-2 rounded-lg shadow-sm hover:bg-gray-100 transition"
+            >
+              Logout
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
