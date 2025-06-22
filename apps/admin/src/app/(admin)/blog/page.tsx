@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import BlogCard from "../../components/Blog/BlogCard";
+import BlogCard from "../../../components/Blog/BlogCard";
 
 
 interface Blog {
