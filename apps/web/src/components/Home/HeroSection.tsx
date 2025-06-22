@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import doctorImage from "../../../public/sunitha_balasubramaniam_profile_pic.jpeg";
+import doctorImage from "../../../public/sunitha_balasubramaniam_profile_image.jpg";
 
 const HeroSection: React.FC = () => {
   const heroRef = useRef(null);
@@ -81,13 +81,13 @@ const HeroSection: React.FC = () => {
           {/* Image */}
           <div ref={imageRef} className="w-full md:w-1/2">
             <div
-              className="relative rounded-full overflow-hidden bg-teal-100 p-4 mx-auto shadow-xl"
-              style={{ maxWidth: "400px" }}
+              className="relative rounded-full overflow-hidden border-[14px] border-teal-100 p-4 mx-auto shadow-xl"
+              style={{ maxWidth: "400px", aspectRatio: "1/1" }} // ensure circular container
             >
               <img
                 src={doctorImage.src}
                 alt="Sunitha Balasubramaniam"
-                className="w-full h-full rounded-full object-cover"
+                className="absolute top-0 left-0 w-[120%] h-[120%] object-cover object-[center_40%]"
               />
             </div>
           </div>

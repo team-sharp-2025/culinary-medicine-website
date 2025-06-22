@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
 
         <div className="mt-8 pt-4 border-t border-teal-700 text-center text-teal-300 text-sm">
           <p>
-            © {new Date().getFullYear()} Culinary Medicine. All rights
+            © {new Date().getFullYear()} suncommunity.in - All rights
             reserved.
           </p>
         </div>
