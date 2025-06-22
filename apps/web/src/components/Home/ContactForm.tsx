@@ -34,7 +34,7 @@ const ContactForm: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const formRef = useRef(null);
-
+  console.log("contact form loaded")
   const {
     register,
     handleSubmit,

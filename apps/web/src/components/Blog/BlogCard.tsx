@@ -41,14 +41,14 @@ const BlogCard: React.FC<BlogCardProps> = ({
               />
             </div>
           )}
-          <div className="bg-yellow-100 text-yellow-800 text-xs px-3 py-2 font-semibold">
+          <div className="bg-yellow-100 text-yellow-700 text-xs px-3 py-2 font-semibold">
             {formattedDate}
           </div>
         </div>
 
         {/* Bottom: Title + Footer */}
         <div className="flex flex-col justify-between flex-1 px-4 py-3">
-          <h2 className="text-lg font-semibold text-gray-800 group-hover:text-orange-600 transition-colors duration-200 line-clamp-2">
+          <h2 className="text-lg font-semibold text-gray-800 group-hover:text-teal-700 transition-colors duration-200 line-clamp-2">
             {title}
           </h2>
           <div className="text-sm text-teal-600 font-medium group-hover:underline mt-3">

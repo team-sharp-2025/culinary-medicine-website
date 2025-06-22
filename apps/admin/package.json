@@ -13,6 +13,7 @@
     "@prisma/client": "^6.9.0",
     "@repo/lib": "workspace:*",
     "@repo/ui": "workspace:*",
+    "lucide-react": "^0.513.0",
     "next": "14.2.3",
     "prisma": "6.9.0",
     "react": "^18",
