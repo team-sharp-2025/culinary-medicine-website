@@ -12,6 +12,8 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
+
   const pathname = usePathname();
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -36,6 +38,12 @@ const Header = () => {
       document.removeEventListener("scroll", handleScroll);
       document.removeEventListener("mousedown", handleClickOutside);
     };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setUserId(localStorage.getItem("userId"));
+    }
   }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -104,7 +112,7 @@ const Header = () => {
               >
                 <FaUserCircle className="text-2xl text-gray-700" />
                 <span className="text-gray-800 font-medium">
-                  {localStorage.getItem("userId") || "User"}
+                  {userId || "User"}
                 </span>
                 <FaChevronDown className="text-sm mt-1" />
               </div>
@@ -152,8 +160,6 @@ const Header = () => {
                   {label}
                 </Link>
               ))}
-
-              {/* Logout for mobile */}
               <button
                 onClick={() => {
                   closeMenu();
