@@ -81,7 +81,7 @@ const BlogsPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Health & Culinary Blogs
+            Health & Wellness Blogs
           </motion.h1>
           <motion.p
             className="text-orange-50 max-w-2xl mx-auto"
