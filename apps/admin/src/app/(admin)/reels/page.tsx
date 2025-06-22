@@ -15,8 +15,6 @@ const ReelsPage = () => {
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
     const hasFetchedRef = useRef(false);
-    const observer = useRef<IntersectionObserver | null>(null);
-    const lastReelRef = useRef<HTMLDivElement | null>(null);
 
     const addReel = async (formData: { title: string; link: string; }, setReels) => {
         const res = await fetch("/api/reels", {
@@ -102,19 +100,6 @@ const ReelsPage = () => {
         fetchReels(page);
     }, [page]);
 
-    useEffect(() => {
-        if (loading) return;
-        if (observer.current) observer.current.disconnect();
-        observer.current = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && hasMore) {
-                setPage((prev) => prev + 1);
-            }
-        });
-        if (lastReelRef.current) {
-            observer.current.observe(lastReelRef.current);
-        }
-    }, [loading, hasMore]);
-
     const openDialog = (reel?: typeof reels[0]) => {
         if (reel) {
             setEditId(reel.id);
@@ -174,38 +159,59 @@ const ReelsPage = () => {
                 </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {reels.map((reel) => (
-                    <div
-                        key={reel.id}
-                        className="bg-white shadow-lg p-4 rounded-xl border hover:shadow-xl transition"
-                    >
-                        <h2 className="text-lg font-semibold text-gray-800 mb-1">{reel.title}</h2>
-                        <a
-                            href={reel.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 text-sm break-all"
-                        >
-                            {reel.link}
-                        </a>
-                        <div className="flex gap-4 mt-4">
-                            <button
-                                onClick={() => openDialog(reel)}
-                                className="text-yellow-500 hover:text-yellow-600"
+            {loading && reels.length === 0 ? (
+                <div className="text-center py-10 text-gray-600">Loading reels...</div>
+            ) : (
+                <>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {reels.map((reel, index) => (
+                            <div
+                                key={reel.id}
+                                className="bg-white shadow-lg p-4 rounded-xl border hover:shadow-xl transition"
                             >
-                                <FaEdit />
-                            </button>
+                                <h2 className="text-lg font-semibold text-gray-800 mb-1">{reel.title}</h2>
+                                <a
+                                    href={reel.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-600 text-sm break-all"
+                                >
+                                    {reel.link}
+                                </a>
+                                <div className="flex gap-4 mt-4">
+                                    <button
+                                        onClick={() => openDialog(reel)}
+                                        className="text-yellow-500 hover:text-yellow-600"
+                                    >
+                                        <FaEdit />
+                                    </button>
+                                    <button
+                                        onClick={() => confirmDelete(reel.id)}
+                                        className="text-red-500 hover:text-red-600"
+                                    >
+                                        <FaTrash />
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {!loading && reels.length > 0 && hasMore && (
+                        <div className="text-center mt-8">
                             <button
-                                onClick={() => confirmDelete(reel.id)}
-                                className="text-red-500 hover:text-red-600"
+                                onClick={() => {
+                                setPage((prev) => prev + 1);
+                                }}
+                                className="bg-gray-800 text-white px-5 py-2 rounded-lg hover:bg-gray-900"
                             >
-                                <FaTrash />
+                                View More
                             </button>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    )}
+
+
+                </>
+            )}
 
             <Dialog open={isOpen} onClose={closeDialog} className="fixed z-50 inset-0 overflow-y-auto">
                 <div className="flex items-center justify-center min-h-screen px-4">

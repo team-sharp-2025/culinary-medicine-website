@@ -76,7 +76,7 @@ const Header = () => {
                     : "text-gray-700 hover:text-teal-600"
                 }`}
               >
-                {path === "/" ? "Home" : path === "/blog" ? "Blog" : "Reels"}
+                {path === "/" ? "Home" : path === "/blog" ? "Blogs" : "Reels"}
               </Link>
             ))}
           </nav>
@@ -108,7 +108,7 @@ const Header = () => {
                   }`}
                   onClick={closeMenu}
                 >
-                  {path === "/" ? "Home" : path === "/blog" ? "Blog" : "Reels"}
+                  {path === "/" ? "Home" : path === "/blog" ? "Blogs" : "Reels"}
                 </Link>
               ))}
             </nav>

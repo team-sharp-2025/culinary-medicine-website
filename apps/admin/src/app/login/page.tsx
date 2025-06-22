@@ -1,47 +1,66 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginPage = () => {
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const router = useRouter();
 
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn === 'true') {
-      router.push('/dashboard');
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn === "true") {
+      router.push("/dashboard");
     }
   }, [router]);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (userId === 'sunita' && password === 'password') {
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('userId', userId);
-      router.push('/dashboard');
-    } else {
-      setError('Incorrect User ID or Password');
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: userId, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "Login failed");
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Save login status and user ID in localStorage
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userId", data.userId);
+
+      router.push("/dashboard");
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong");
+    } finally {
+      setIsSubmitting(false);
     }
-  };
-
-  const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserId(e.target.value);
-    if (error) setError('');
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    if (error) setError('');
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-emerald-100 p-4">
       <div className="bg-white shadow-xl rounded-xl p-8 max-w-md w-full">
-        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Admin Login</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
+          Admin Login
+        </h1>
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label className="text-sm font-medium text-gray-700">User ID</label>
@@ -49,18 +68,26 @@ const LoginPage = () => {
               type="text"
               className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
               value={userId}
-              onChange={handleUserChange}
+              onChange={(e) => {
+                setUserId(e.target.value);
+                setError("");
+              }}
               required
             />
           </div>
           <div>
-            <label className="text-sm font-medium text-gray-700">Password</label>
+            <label className="text-sm font-medium text-gray-700">
+              Password
+            </label>
             <div className="relative">
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400 pr-10"
                 value={password}
-                onChange={handlePasswordChange}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setError("");
+                }}
                 required
               />
               <button
@@ -75,9 +102,10 @@ const LoginPage = () => {
           {error && <p className="text-red-600 text-sm text-center">{error}</p>}
           <button
             type="submit"
+            disabled={isSubmitting}
             className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-md text-sm font-semibold transition"
           >
-            Login
+            {isSubmitting ? "Logging in..." : "Login"}
           </button>
         </form>
       </div>

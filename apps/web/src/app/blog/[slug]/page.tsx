@@ -1,4 +1,5 @@
 "use client";
+import ReactMarkdown from 'react-markdown';
 
 import React, { useEffect, useState } from "react";
 import { useParams, notFound } from "next/navigation";
@@ -80,7 +81,9 @@ const BlogDetailPage: React.FC = () => {
             className="w-full h-64 object-cover rounded-lg mb-6"
           />
         )}
-        <div className="prose prose-lg text-gray-800">{blog.content}</div>
+        <div className="prose prose-lg text-gray-800">
+          <ReactMarkdown>{blog.content}</ReactMarkdown>
+        </div>
       </div>
     </div>
   );

@@ -84,10 +84,10 @@ const BlogSection: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-teal-200 to-blue-50 scroll-mt-20">
+    <section className="py-20 bg-teal-50 scroll-mt-20">
       <div className="container mx-auto px-4">
         <h2 className="font-serif text-3xl md:text-4xl text-center text-gray-800 font-bold mb-16">
-          MY BLOG
+          Read Our Blogs
         </h2>
 
         {loading ? (

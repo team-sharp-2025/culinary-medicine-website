@@ -84,7 +84,7 @@ const ReelsPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Instagram Reels
+            Reel Highlights
           </motion.h1>
           <motion.p
             className="text-teal-50 max-w-2xl mx-auto"
