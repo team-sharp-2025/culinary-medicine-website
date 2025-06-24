@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import BlogCard from "../../../components/Blog/BlogCard";
-
+import { useRouter } from "next/navigation";
 
 interface Blog {
   id: number;
@@ -12,10 +12,12 @@ interface Blog {
 }
 
 const AdminBlogPage = () => {
+  const router = useRouter();
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
+  const didFetchRef = useRef(false);
 
   const fetchBlogs = async (page: number) => {
     setLoading(true);
@@ -64,6 +66,8 @@ const AdminBlogPage = () => {
   };
 
   useEffect(() => {
+    if (didFetchRef.current) return;
+    didFetchRef.current = true;
     fetchBlogs(page);
   }, [page]);
 
@@ -71,6 +75,14 @@ const AdminBlogPage = () => {
     <div className="p-6 min-h-screen bg-gray-50">
       <h1 className="text-2xl font-bold mb-6">📚 All Blogs</h1>
 
+      <div className="flex justify-end mb-4">
+        <a
+          href="/blog/create"
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          + Create New Blog
+        </a>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {blogs.map((blog) => (
           <BlogCard
@@ -79,6 +91,7 @@ const AdminBlogPage = () => {
             title={blog.title}
             createdAt={blog.createdAt}
             imageUrl={blog.imageUrl}
+            onEdit={() => router.push(`/blog/edit/${blog.id}`)}
             onDelete={() => deleteBlog(blog.id)}
           />
         ))}

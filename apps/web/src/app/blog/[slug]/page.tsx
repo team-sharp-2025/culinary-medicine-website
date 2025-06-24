@@ -82,7 +82,11 @@ const BlogDetailPage: React.FC = () => {
           />
         )}
         <div className="prose prose-lg text-gray-800">
-          <ReactMarkdown>{blog.content}</ReactMarkdown>
+          {/* <ReactMarkdown>{blog.content}</ReactMarkdown> */}
+          <div
+            className="prose prose-lg text-gray-800 list-disc list-inside"
+            dangerouslySetInnerHTML={{ __html: blog.content }}
+          ></div>
         </div>
       </div>
     </div>
