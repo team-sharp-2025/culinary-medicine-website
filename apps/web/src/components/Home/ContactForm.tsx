@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { motion } from "framer-motion";
 import Button from "../../../../../packages/ui/src/Button";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import emailjs from "@emailjs/browser";
 
 // Form validation schema
@@ -28,13 +25,11 @@ const contactSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
-gsap.registerPlugin(ScrollTrigger);
-
 const ContactForm: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const formRef = useRef(null);
-  console.log("contact form loaded")
+
   const {
     register,
     handleSubmit,
@@ -43,25 +38,6 @@ const ContactForm: React.FC = () => {
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
-
-  useEffect(() => {
-    if (formRef.current) {
-      gsap.fromTo(
-        formRef.current,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: formRef.current,
-            start: "top 85%",
-          },
-        }
-      );
-    }
-  }, []);
 
   const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
     setErrorMessage("");
@@ -92,13 +68,7 @@ const ContactForm: React.FC = () => {
   return (
     <section className="py-16 bg-white" id="contact">
       <div className="container mx-auto px-4">
-        <motion.div
-          className="max-w-3xl mx-auto text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
+        <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="font-serif text-3xl text-gray-800 font-bold mb-4">
             Get in Touch
           </h2>
@@ -106,15 +76,9 @@ const ContactForm: React.FC = () => {
             Have questions about how culinary medicine can help you? Send us a
             message and we'll get back to you as soon as possible.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="bg-white rounded-lg shadow-lg p-6 md:p-8 max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
+        <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 max-w-3xl mx-auto">
           {isSubmitted ? (
             <div className="text-center py-8">
               <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -266,7 +230,7 @@ const ContactForm: React.FC = () => {
               )}
             </form>
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
