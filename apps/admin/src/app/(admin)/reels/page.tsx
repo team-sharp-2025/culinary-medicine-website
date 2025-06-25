@@ -15,6 +15,7 @@ const ReelsPage = () => {
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
     const hasFetchedRef = useRef(false);
+    const didFetchRef = useRef(false);
 
     const addReel = async (formData: { title: string; link: string; }, setReels) => {
         const res = await fetch("/api/reels", {
@@ -93,6 +94,8 @@ const ReelsPage = () => {
     };
 
     useEffect(() => {
+        if (didFetchRef.current) return;
+            didFetchRef.current = true;
         if (hasFetchedRef.current) return;
         hasFetchedRef.current = true;
         document.title = "Reels | Culinary Medicine";

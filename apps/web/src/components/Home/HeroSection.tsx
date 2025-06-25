@@ -1,38 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import React, { useRef } from "react";
 import doctorImage from "../../../public/sunitha_balasubramaniam_profile_image.jpg";
 
 const HeroSection: React.FC = () => {
   const heroRef = useRef(null);
   const imageRef = useRef(null);
   const textContentRef = useRef(null);
-
-  useEffect(() => {
-    const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-    timeline
-      .fromTo(
-        textContentRef.current,
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 1 }
-      )
-      .fromTo(
-        imageRef.current,
-        { opacity: 0, scale: 0.9 },
-        { opacity: 1, scale: 1, duration: 1 },
-        "-=0.8"
-      );
-
-    gsap.to(".bg-teal-200", {
-      y: -100,
-      scrollTrigger: {
-        trigger: heroRef.current,
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
-  }, []);
 
   return (
     <div

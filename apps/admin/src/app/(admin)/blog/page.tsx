@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import BlogCard from "../../../components/Blog/BlogCard";
-
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
+import { supabase } from "../../../lib/supabaseClient";
 
 interface Blog {
   id: number;
@@ -12,6 +14,7 @@ interface Blog {
 }
 
 const AdminBlogPage = () => {
+  const router = useRouter();
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -22,15 +25,17 @@ const AdminBlogPage = () => {
     try {
       const res = await fetch("/api/blogs/search", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ page, size: 6, searchTerm: "" }),
       });
 
       const data = await res.json();
       if (data.success && data.response.blogs.length > 0) {
-        setBlogs((prev) => [...prev, ...data.response.blogs]);
+        if (page === 1) {
+          setBlogs(data.response.blogs);
+        } else {
+          setBlogs((prev) => [...prev, ...data.response.blogs]);
+        }
         setHasMore(data.response.blogs.length === 6);
       } else {
         setHasMore(false);
@@ -47,21 +52,47 @@ const AdminBlogPage = () => {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`/api/blogs/delete?id=${id}`, {
-        method: "DELETE",
-      });
+      const blogData = await getBlogData(id);
+      if (!blogData || !blogData.response.imageUrl) {
+        toast.error("Couldn't find blog image to delete.");
+      } else {
+        const filePath = getFilePath(blogData);
+        const { error: deleteError } = await supabase.storage.from("blog-images").remove([filePath]);
 
+        if (deleteError) {
+          console.error("Image delete error:", deleteError);
+          toast.error("Failed to delete blog image.");
+          return;
+        }
+      }
+      const res = await fetch(`/api/blogs/${id}`, { method: "DELETE" });
       const data = await res.json();
       if (data.success) {
-        setBlogs((prev) => prev.filter((b) => b.id !== id));
+        toast.success("Blog deleted successfully");
+        setPage(1);
+        fetchBlogs(1);
       } else {
         alert("Failed to delete the blog");
+        toast.error("Failed to delete the blog");
       }
     } catch (error) {
       console.error("Delete error:", error);
-      alert("Error deleting blog");
+      toast.error("An error occurred while deleting.");
     }
   };
+
+  const getBlogData = async (id: number) => {
+    const blogRes = await fetch(`/api/blogs/${id}`, { method: "GET" });
+    const blogData = await blogRes.json();
+    return blogData;
+  }
+
+  const getFilePath = (blogData: any) => {
+    const imageUrl: string = blogData.response.imageUrl;
+    const publicPrefix = `${process.env.NEXT_PUBLIC_SUPABASE_URL}` + `/storage/v1/object/public/blog-images/`;
+    const filePath = imageUrl.replace(publicPrefix, "");
+    return filePath;
+  }
 
   useEffect(() => {
     fetchBlogs(page);
@@ -69,8 +100,17 @@ const AdminBlogPage = () => {
 
   return (
     <div className="p-6 min-h-screen bg-gray-50">
+      <Toaster position="top-center" />
       <h1 className="text-2xl font-bold mb-6">📚 All Blogs</h1>
 
+      <div className="flex justify-end mb-4">
+        <a
+          href="/blog/create"
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          + Create New Blog
+        </a>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {blogs.map((blog) => (
           <BlogCard
@@ -79,6 +119,7 @@ const AdminBlogPage = () => {
             title={blog.title}
             createdAt={blog.createdAt}
             imageUrl={blog.imageUrl}
+            onEdit={() => router.push(`/blog/edit/${blog.id}`)}
             onDelete={() => deleteBlog(blog.id)}
           />
         ))}
