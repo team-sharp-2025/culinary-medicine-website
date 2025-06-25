@@ -34,8 +34,9 @@ const HomePage: React.FC = () => {
               </h3>
               <p className="text-gray-600 text-center">
                 The gut, filled with a diverse microbiome and often called our
-                'second brain,' produces mood-regulating chemicals like serotonin. A balanced gut can
-                enhance mood and reduce cravings for unhealthy foods.
+                'second brain,' produces mood-regulating chemicals like
+                serotonin. A balanced gut can enhance mood and reduce cravings
+                for unhealthy foods.
               </p>
               <a
                 href="/approach/second_brain"
@@ -55,8 +56,9 @@ const HomePage: React.FC = () => {
               </h3>
               <p className="text-gray-600 text-center">
                 Each of us processes food differently. While various dietary
-                approaches may be practical, it's essential to tune into our body's signals and
-                behaviours to discover what truly supports our health and well-being.
+                approaches may be practical, it's essential to tune into our
+                body's signals and behaviours to discover what truly supports
+                our health and well-being.
               </p>
               <a
                 href="/approach/bio_individuality"
@@ -76,8 +78,8 @@ const HomePage: React.FC = () => {
               </h3>
               <p className="text-gray-600 text-center">
                 Healthy cooking doesn't have to be dull or time-consuming. With
-                simple techniques and the right ingredients, we can create delicious and nourishing
-                meals.
+                simple techniques and the right ingredients, we can create
+                delicious and nourishing meals.
               </p>
               <a
                 href="/approach/culinary_skills"
@@ -89,20 +91,19 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
-      
+
       <InstagramReels />
       <BlogSection />
       <ContactForm />
-      
+
       {/* Testimonials Section */}
-      <section className="py-20 bg-teal-50">
+      {/* <section className="py-20 bg-teal-50">
         <div className="container mx-auto px-4">
           <h2 className="font-serif text-3xl md:text-4xl text-center text-gray-800 font-bold mb-16">
             Patient Success Stories
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Testimonial 1 */}
             <div className="bg-white p-8 rounded-xl shadow-lg transform hover:-translate-y-1 transition-transform duration-300">
               <div className="flex items-center mb-4">
                 <div className="w-14 h-14 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
@@ -120,8 +121,6 @@ const HomePage: React.FC = () => {
                 make!"
               </p>
             </div>
-
-            {/* Testimonial 2 */}
             <div className="bg-white p-8 rounded-xl shadow-lg transform hover:-translate-y-1 transition-transform duration-300">
               <div className="flex items-center mb-4">
                 <div className="w-14 h-14 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
@@ -141,7 +140,7 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };
