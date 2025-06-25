@@ -28,6 +28,8 @@
     "@prisma/client": "^6.9.0",
     "@supabase/supabase-js": "^2.49.10",
     "@tailwindcss/postcss": "^4.1.8",
+    "@tiptap/react": "^2.22.3",
+    "@tiptap/starter-kit": "^2.22.3",
     "prisma": "6.9.0",
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
