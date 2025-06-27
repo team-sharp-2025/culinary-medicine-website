@@ -16,10 +16,7 @@ const contactSchema = z.object({
     .string()
     .min(1, "Email is required")
     .email("Please enter a valid email"),
-  phone: z
-    .string()
-    .min(1, "Phone number is required")
-    .regex(/^[0-9]{10}$/, "Phone number must be 10 digits"),
+  phone: z.string().optional(),
   message: z.string().optional(),
 });
 
@@ -166,7 +163,7 @@ const ContactForm: React.FC = () => {
                     htmlFor="phone"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Phone Number <span className="text-red-500">*</span>
+                    Phone Number
                   </label>
                   <input
                     id="phone"
@@ -176,7 +173,7 @@ const ContactForm: React.FC = () => {
                         ? "border-red-300 focus:ring-red-200"
                         : "border-gray-300 focus:ring-teal-200 focus:border-teal-400"
                     }`}
-                    placeholder="1234567890"
+                    placeholder="+91 98XXXX1234"
                     {...register("phone")}
                   />
                   {errors.phone && (

@@ -28,10 +28,27 @@ export const blogService = {
         return prisma.blog.findUnique({ where: { id } });
     },
     async create(data: { title: string; content: string }) {
-        return prisma.blog.create({ data });
+        try {
+            return await prisma.blog.create({ data });
+        } catch (error: any) {
+            if (error?.code === 'P2002') {
+                throw new Error('A blog with this title already exists.');
+            }
+            throw error;
+        }
     },
     async update(id: number, data: { title?: string; content?: string }) {
-        return prisma.blog.update({ where: { id }, data });
+        try {
+            return await prisma.blog.update({
+                where: { id },
+                data,
+            });
+        } catch (error: any) {
+            if (error?.code === 'P2002') {
+                throw new Error('A blog with this title already exists.');
+            }
+            throw error;
+        }
     },
     async delete(id: number) {
         return prisma.blog.delete({ where: { id } });

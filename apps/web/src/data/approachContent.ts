@@ -42,10 +42,10 @@ export const approachContentMap: Record<string, ApproachContent> = {
         informed food choices tailored to our body’s needs rather than following a
         one-size-fits-all plan.`,
     images: [
-      "/sunitha-b-positive-psychology-certificate.png",
-      "/sunitha-b-an-introduction-to-tai-chi-certificate.png",
-      "/sunitha-b-cognitive-fitness-certificate.png",
-      "/sunitha-b-def0b946-b444-44f8-ab9a-0eaef2417775-certificate.png",
+      "/sunitha-b-positive-psychology-certificate.PNG",
+      "/sunitha-b-an-introduction-to-tai-chi-certificate.PNG",
+      "/sunitha-b-cognitive-fitness-certificate.PNG",
+      "/sunitha-b-def0b946-b444-44f8-ab9a-0eaef2417775-certificate.PNG",
     ],
   },
 
@@ -61,10 +61,10 @@ export const approachContentMap: Record<string, ApproachContent> = {
       some creativity and planning, cooking becomes a joyful act of self-care rather than a
       chore.`,
     images: [
-      "/HMS-certificate-download.png",
-      "/Balasubramaniam, Sunitha (1).png",
-      "/sunitha-b-healthy-eating-for-type-2-diabetes-certificate.png",
-      "/sunitha-b-controlling-your-blood-pressure-certificate.png",
+      "/HMS-certificate-download.PNG",
+      "/Balasubramaniam, Sunitha (1).PNG",
+      "/sunitha-b-healthy-eating-for-type-2-diabetes-certificate.PNG",
+      "/sunitha-b-controlling-your-blood-pressure-certificate.PNG",
     ],
   },
 };
