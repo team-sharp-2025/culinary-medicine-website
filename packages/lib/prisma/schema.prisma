@@ -18,7 +18,7 @@ model User {
 
 model Blog {
   id        Int      @id @default(autoincrement())
-  title     String
+  title     String   @unique
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -27,7 +27,7 @@ model Blog {
 
 model Reel {
   id        Int      @id @default(autoincrement())
-  title     String
+  title     String   @unique
   link      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
