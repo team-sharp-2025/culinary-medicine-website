@@ -15,6 +15,7 @@ export default function BlogEditPage() {
   const [loading, setLoading] = useState(true);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageURL, setImageURL] = useState("");
+  const [contentFromAPI, setContentFromAPI] = useState("");
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -29,12 +30,8 @@ export default function BlogEditPage() {
         }
 
         setTitle(data.response.title);
-        editorRef.current?.setHTML(data.response.content);
-        if (!data.response.imageUrl) {
-          console.error("Blog image not found");
-        } else {
-          setImageURL(data.response.imageUrl);
-        }
+        setContentFromAPI(data.response.content);
+        setImageURL(data.response.imageUrl || "");
       } catch (e) {
         alert("Error fetching blog");
         router.push("/admin/blog");
@@ -81,7 +78,6 @@ export default function BlogEditPage() {
         imageUrl = result.data.publicUrl;
       }
 
-
       const res = await fetch(`/api/blogs/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -105,7 +101,7 @@ export default function BlogEditPage() {
     const publicPrefix = `${process.env.NEXT_PUBLIC_SUPABASE_URL}` + `/storage/v1/object/public/blog-images/`;
     const filePath = imageUrl.replace(publicPrefix, "");
     return filePath;
-  }
+  };
 
   if (loading) return <div className="p-6 text-center">Loading...</div>;
 
@@ -122,7 +118,7 @@ export default function BlogEditPage() {
         className="w-full border p-2 rounded"
       />
 
-      <RichTextEditor ref={editorRef} />
+      <RichTextEditor ref={editorRef} initialContent={contentFromAPI} />
 
       <label className="block mb-4">
         <span className="block mb-2 font-medium text-gray-700">Upload Image</span>
