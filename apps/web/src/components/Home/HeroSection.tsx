@@ -40,7 +40,7 @@ const HeroSection: React.FC = () => {
               <div className="mt-10 flex justify-center md:justify-start">
                 <div className="inline-block px-6 py-4 bg-white border-l-4 border-teal-600 shadow-md rounded-md">
                   <p className="text-2xl font-bold text-teal-700">
-                    Dr. Sunitha Balasubramaniam
+                    Mrs. Sunitha Balasubramaniam
                   </p>
                   <p className="text-gray-600 text-sm tracking-wider mt-1 uppercase">
                     Culinary Medicine Specialist
