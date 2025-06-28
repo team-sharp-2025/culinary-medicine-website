@@ -13,12 +13,16 @@ export default function BlogCreatePage() {
   const editorRef = useRef<RichTextEditorRef>(null);
   const [title, setTitle] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true);
+    e.stopPropagation();
     e.preventDefault();
     const content = editorRef.current?.getHTML() || "";
 
-    if (!title.trim() || (!content || content === "<p></p>")) {
+    if (!title.trim() || !content || content === "<p></p>") {
+      setLoading(false);
       toast.error("Title or content should not be empty");
       return;
     }
@@ -28,9 +32,13 @@ export default function BlogCreatePage() {
     if (imageFile) {
       const fileExt = imageFile.name?.split(".").pop();
       const fileName = `${Date.now()}.${fileExt}`;
-      const { error: uploadError } = await supabase.storage.from("blog-images").upload(fileName, imageFile);
+      const { error: uploadError } = await supabase.storage
+        .from("blog-images")
+        .upload(fileName, imageFile);
       if (uploadError) throw uploadError;
-      const result = supabase.storage.from("blog-images").getPublicUrl(fileName);
+      const result = supabase.storage
+        .from("blog-images")
+        .getPublicUrl(fileName);
       imageUrl = result.data.publicUrl;
     }
 
@@ -42,9 +50,13 @@ export default function BlogCreatePage() {
 
     const data = await res.json();
     if (data.success) {
+      setLoading(false);
       toast.success("Blog updated successfully!");
-      setTimeout(() => { router.push("/blog") }, 1000);
+      setTimeout(() => {
+        router.push("/blog");
+      }, 1000);
     } else {
+      setLoading(false);
       toast.error("Failed to create blog");
     }
   };
@@ -63,7 +75,9 @@ export default function BlogCreatePage() {
       <RichTextEditor ref={editorRef} />
 
       <label className="block mb-4">
-        <span className="block mb-2 font-medium text-gray-700">Upload Image</span>
+        <span className="block mb-2 font-medium text-gray-700">
+          Upload Image
+        </span>
         <input
           type="file"
           accept="image/*"
@@ -74,9 +88,13 @@ export default function BlogCreatePage() {
 
       <button
         type="submit"
-        className="bg-emerald-600 text-white px-4 py-2 rounded"
+        className={`px-4 py-2 rounded text-white ${
+          loading
+            ? "bg-emerald-400 cursor-not-allowed"
+            : "bg-emerald-600 hover:bg-emerald-700"
+        }`}
       >
-        Submit
+        {loading ? "Creating..." : "Create"}
       </button>
     </form>
   );
