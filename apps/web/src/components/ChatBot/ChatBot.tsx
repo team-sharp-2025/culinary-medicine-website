@@ -63,7 +63,7 @@ const getBotResponse = (userMsg: string): string => {
     return "Take care! 👋 Wishing you good health. I'm here whenever you need assistance.";
   }
 
-  return "For detailed or medical-related queries, it's best to connect directly with Mrs.Sunitha. You can reach us at 📧 dr.sunitha@example.com or 📞 98765 43210.";
+  return "For detailed or medical-related queries, it's best to connect directly with Mrs.Sunitha. You can reach us at 📧 sunitha.bala@gmail.com";
 };
 
   const handleSendMessage = (e: React.FormEvent) => {
