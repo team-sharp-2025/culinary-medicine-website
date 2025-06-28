@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import RichTextEditor, { RichTextEditorRef } from "../../../../../components/Blog/RichTextEditor";
+import RichTextEditor, {
+  RichTextEditorRef,
+} from "../../../../../components/Blog/RichTextEditor";
 import toast, { Toaster } from "react-hot-toast";
 import { supabase } from "../../../../../lib/supabaseClient";
 
@@ -45,20 +47,26 @@ export default function BlogEditPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     try {
+      setLoading(true);
+      e.stopPropagation();
       e.preventDefault();
       let imageUrl = imageURL;
       const content = editorRef.current?.getHTML() || "";
 
-      if (!title.trim() || (!content || content === "<p></p>")) {
+      if (!title.trim() || !content || content === "<p></p>") {
+        setLoading(false);
         toast.error("Title or content should not be empty");
         return;
       }
 
       if (imageURL && imageFile != null) {
         const filePath = getFilePath(imageURL);
-        const { error: deleteError } = await supabase.storage.from("blog-images").remove([filePath]);
+        const { error: deleteError } = await supabase.storage
+          .from("blog-images")
+          .remove([filePath]);
 
         if (deleteError) {
+          setLoading(false);
           console.error("Image delete error:", deleteError);
           toast.error("Failed to delete blog image.");
           return;
@@ -68,13 +76,18 @@ export default function BlogEditPage() {
       if (imageFile != null) {
         const fileExt = imageFile.name?.split(".").pop();
         const fileName = `${Date.now()}.${fileExt}`;
-        const { error: uploadError } = await supabase.storage.from("blog-images").upload(fileName, imageFile);
+        const { error: uploadError } = await supabase.storage
+          .from("blog-images")
+          .upload(fileName, imageFile);
         if (uploadError) {
+          setLoading(false);
           console.error("Image upload error:", uploadError);
           toast.error("Failed to upload blog image.");
           return;
         }
-        const result = supabase.storage.from("blog-images").getPublicUrl(fileName);
+        const result = supabase.storage
+          .from("blog-images")
+          .getPublicUrl(fileName);
         imageUrl = result.data.publicUrl;
       }
 
@@ -86,19 +99,24 @@ export default function BlogEditPage() {
 
       const data = await res.json();
       if (data.success) {
+        setLoading(false);
         toast.success("Blog updated successfully!");
         router.push("/blog");
       } else {
+        setLoading(false);
         toast.error("Failed to submit blog.");
       }
     } catch (error) {
+      setLoading(false);
       console.error("Error updating blog:", error);
       toast.error("An error occurred while updating the blog.");
     }
   };
 
   const getFilePath = (imageUrl: string) => {
-    const publicPrefix = `${process.env.NEXT_PUBLIC_SUPABASE_URL}` + `/storage/v1/object/public/blog-images/`;
+    const publicPrefix =
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}` +
+      `/storage/v1/object/public/blog-images/`;
     const filePath = imageUrl.replace(publicPrefix, "");
     return filePath;
   };
@@ -121,7 +139,9 @@ export default function BlogEditPage() {
       <RichTextEditor ref={editorRef} initialContent={contentFromAPI} />
 
       <label className="block mb-4">
-        <span className="block mb-2 font-medium text-gray-700">Upload Image</span>
+        <span className="block mb-2 font-medium text-gray-700">
+          Upload Image
+        </span>
         <input
           type="file"
           accept="image/*"
@@ -130,8 +150,15 @@ export default function BlogEditPage() {
         />
       </label>
 
-      <button type="submit" className="bg-emerald-600 text-white px-4 py-2 rounded">
-        Save Changes
+      <button
+        type="submit"
+        className={`px-4 py-2 rounded text-white ${
+          loading
+            ? "bg-emerald-400 cursor-not-allowed"
+            : "bg-emerald-600 hover:bg-emerald-700"
+        }`}
+      >
+        {loading ? "Saving..." : "Save Changes"}
       </button>
     </form>
   );

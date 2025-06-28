@@ -16,11 +16,8 @@ interface Blog {
 const BlogsPage: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const observer = useRef<IntersectionObserver | null>(null);
-  const lastBlogRef = useRef<HTMLDivElement | null>(null);
-  const hasFetchedRef = useRef(false);
+  const [hasMore, setHasMore] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchBlogs = async (page: number) => {
     setLoading(true);
@@ -35,7 +32,12 @@ const BlogsPage: React.FC = () => {
 
       const data = await res.json();
       if (data.success && data.response.blogs.length > 0) {
-        setBlogs((prev) => [...prev, ...data.response.blogs]);
+        if (page === 1) {
+          setBlogs(data.response.blogs);
+        } else {
+          // Append new blogs to the existing list
+          setBlogs((prev) => [...prev, ...data.response.blogs]);
+        }
         setHasMore(data.response.blogs.length === 6);
       } else {
         setHasMore(false);
@@ -48,27 +50,9 @@ const BlogsPage: React.FC = () => {
   };
 
   useEffect(() => {
-    if (hasFetchedRef.current) return;
-    hasFetchedRef.current = true;
     document.title = "Blogs | Culinary Medicine";
-    window.scrollTo(0, 0);
     fetchBlogs(page);
   }, [page]);
-
-  useEffect(() => {
-    if (loading) return;
-    if (observer.current) observer.current.disconnect();
-
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasMore) {
-        setPage((prev) => prev + 1);
-      }
-    });
-
-    if (lastBlogRef.current) {
-      observer.current.observe(lastBlogRef.current);
-    }
-  }, [loading, hasMore]);
 
   return (
     <div className="min-h-screen pt-16 md:pt-20">
@@ -99,10 +83,7 @@ const BlogsPage: React.FC = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogs.map((blog, index) => (
-            <div
-              key={blog.id}
-              ref={index === blogs.length - 1 ? lastBlogRef : null}
-            >
+            <div key={blog.id}>
               <BlogCard
                 id={blog.id}
                 title={blog.title}
@@ -114,9 +95,20 @@ const BlogsPage: React.FC = () => {
         </div>
 
         {loading && <BarLoader />}
-        {!hasMore && !loading && blogs.length > 0 && (
+        {!hasMore && !loading && (
           <div className="text-center py-6 text-gray-500">
             You have reached the end.
+          </div>
+        )}
+        {hasMore && (
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={() => setPage((prev) => prev + 1)}
+              disabled={loading}
+              className="px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition"
+            >
+              {loading ? "Loading..." : "Load More"}
+            </button>
           </div>
         )}
       </div>
