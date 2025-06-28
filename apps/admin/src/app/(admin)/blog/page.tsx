@@ -57,7 +57,9 @@ const AdminBlogPage = () => {
         toast.error("Couldn't find blog image to delete.");
       } else {
         const filePath = getFilePath(blogData);
-        const { error: deleteError } = await supabase.storage.from("blog-images").remove([filePath]);
+        const { error: deleteError } = await supabase.storage
+          .from("blog-images")
+          .remove([filePath]);
 
         if (deleteError) {
           console.error("Image delete error:", deleteError);
@@ -85,14 +87,16 @@ const AdminBlogPage = () => {
     const blogRes = await fetch(`/api/blogs/${id}`, { method: "GET" });
     const blogData = await blogRes.json();
     return blogData;
-  }
+  };
 
   const getFilePath = (blogData: any) => {
     const imageUrl: string = blogData.response.imageUrl;
-    const publicPrefix = `${process.env.NEXT_PUBLIC_SUPABASE_URL}` + `/storage/v1/object/public/blog-images/`;
+    const publicPrefix =
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}` +
+      `/storage/v1/object/public/blog-images/`;
     const filePath = imageUrl.replace(publicPrefix, "");
     return filePath;
-  }
+  };
 
   useEffect(() => {
     fetchBlogs(page);
@@ -125,6 +129,11 @@ const AdminBlogPage = () => {
         ))}
       </div>
 
+      {!hasMore && !loading && (
+        <div className="text-center py-6 text-gray-500">
+          You have reached the end.
+        </div>
+      )}
       {hasMore && (
         <div className="flex justify-center mt-8">
           <button
