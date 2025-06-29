@@ -122,7 +122,7 @@ const ContactForm: React.FC = () => {
                       ? "border-red-300 focus:ring-red-200"
                       : "border-gray-300 focus:ring-teal-200 focus:border-teal-400"
                   }`}
-                  placeholder="John Doe"
+                  placeholder="Your Name"
                   {...register("name")}
                 />
                 {errors.name && (

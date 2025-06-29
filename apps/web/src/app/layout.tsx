@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: "Culinary Medicine - Food as Medicine",
   description:
     "Evidence-based nutrition meets the joy of cooking to create a path to vibrant health.",
+  icons: {
+    icon: "/Logo.jpeg",
+  },
 };
 
 export default function RootLayout({
