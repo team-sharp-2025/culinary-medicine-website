@@ -94,7 +94,9 @@ const HomePage: React.FC = () => {
 
       <InstagramReels />
       <BlogSection />
-      <ContactForm />
+      <div id="contact">
+        <ContactForm />
+      </div>
 
       {/* Testimonials Section */}
       {/* <section className="py-20 bg-teal-50">

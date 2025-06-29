@@ -8,11 +8,11 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-6 md:mb-0">
             <h2 className="text-xl font-serif font-semibold mb-2">
-              Culinary Medicine
+              <span>Culinary Medicine</span>
+              <span className="text-teal-100"> – Where food meets health</span>
             </h2>
             <p className="text-teal-100 max-w-md">
-              Where nutrition meets healing. Empowering you to take control of
-              your health through food.
+              Empowering you to take control of your health
             </p>
           </div>
 
