@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
               <span>Culinary Medicine</span>
               <span className="text-teal-100"> – Where food meets health</span>
             </h2>
-            <p className="text-teal-100 max-w-md">
+            <p className="text-teal-100 font-serif font-semibold text-xl">
               Empowering you to take control of your health
             </p>
           </div>
