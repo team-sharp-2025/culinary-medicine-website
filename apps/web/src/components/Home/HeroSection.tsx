@@ -97,7 +97,7 @@ const HeroSection: React.FC = () => {
             {/* Doctor Image */}
             <div ref={imageRef} className="w-[300px] md:w-[400px]">
               <div
-                className="relative rounded-full overflow-hidden border-[12px] border-teal-100 bg-white p-2 mx-auto shadow-2xl"
+                className="relative rounded-full overflow-hidden border-[12px] border-teal-600 bg-white p-2 mx-auto shadow-2xl"
                 style={{ aspectRatio: "1/1" }}
               >
                 <img
@@ -109,7 +109,7 @@ const HeroSection: React.FC = () => {
             </div>
 
             {/* Enhanced Quote Tile */}
-            <div className="relative w-full max-w-md bg-teal-50 border border-teal-700 shadow-lg rounded-xl px-6 py-5 text-gray-800">
+            <div className="relative w-full max-w-sm bg-teal-50 border border-teal-700 shadow-md rounded-lg px-4 py-4 text-gray-800">
               {/* Decorative Quote Marks */}
               <div className="absolute -top-4 -left-4 text-teal-700 text-5xl font-serif select-none">
                 “
@@ -119,7 +119,7 @@ const HeroSection: React.FC = () => {
               </div>
 
               {/* Quote */}
-              <p className="italic text-sm md:text-base leading-relaxed font-medium z-10 relative">
+              <p className= "text-[15px] leading-relaxed font-medium z-10 relative">
                 We are bio-individuals, each processing food in unique ways.
                 While many dietary approaches may be practical, we must listen
                 to our body's signals to determine what works best.
@@ -127,7 +127,7 @@ const HeroSection: React.FC = () => {
 
               {/* Doctor Info */}
               <div className="mt-4 border-t border-teal-200 pt-3 text-left">
-                <p className="text-xl md:text-2xl font-semibold text-gray-900">
+                <p className="text-xl md:text-xl font-semibold text-gray-900">
                   Mrs. Sunitha Balasubramaniam,
                 </p>
                 <p className="text-s md:text-sm text-gray-600 mt-1 tracking-wide">
