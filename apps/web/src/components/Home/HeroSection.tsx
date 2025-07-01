@@ -109,32 +109,24 @@ const HeroSection: React.FC = () => {
             </div>
 
             {/* Enhanced Quote Tile */}
-            <div className="relative w-full max-w-sm bg-teal-50 border border-teal-700 shadow-md rounded-lg px-4 py-4 text-gray-800">
-              {/* Decorative Quote Marks */}
-              <div className="absolute -top-4 -left-4 text-teal-700 text-5xl font-serif select-none">
-                “
-              </div>
-              <div className="absolute -bottom-4 -right-4 text-teal-700 text-5xl font-serif select-none">
-                ”
-              </div>
-
-              {/* Quote */}
-              <p className= "text-[15px] leading-relaxed font-medium z-10 relative">
+            {/* Quote and Doctor Info – No Box */}
+            <div className="w-full max-w-sm text-gray-800">
+              <p className="italic text-base leading-relaxed font-medium">
                 We are bio-individuals, each processing food in unique ways.
                 While many dietary approaches may be practical, we must listen
                 to our body's signals to determine what works best.
               </p>
 
-              {/* Doctor Info */}
-              <div className="mt-4 border-t border-teal-200 pt-3 text-left">
+              <div className="mt-4 pt-3 text-left">
                 <p className="text-xl md:text-xl font-semibold text-gray-900">
-                  Mrs. Sunitha Balasubramaniam,
+                  Mrs. Sunitha Balasubramaniam
                 </p>
                 <p className="text-s md:text-sm text-gray-600 mt-1 tracking-wide">
                   Culinary Medicine Specialist.
                 </p>
               </div>
             </div>
+
           </div>
         </div>
       </div>
