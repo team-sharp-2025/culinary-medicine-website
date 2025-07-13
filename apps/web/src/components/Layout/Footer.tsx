@@ -9,10 +9,10 @@ const Footer: React.FC = () => {
           <div className="mb-6 md:mb-0">
             <h2 className="text-xl font-serif font-semibold mb-2">
               <span>Culinary Medicine</span>
-              <span className="text-teal-100"> – Where food meets health</span>
+              <span className="text-teal-100"> – Where food meets health.</span>
             </h2>
             <p className="text-teal-100 font-serif font-semibold text-xl">
-              Empowering you to take control of your health
+              Empowering you to take control of your health !
             </p>
           </div>
 
@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
                 Instagram
               </a>
             </div>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <Facebook size={18} className="mr-2 text-teal-200" />
               <a
                 href="https://www.facebook.com/share/1ZP4DFRhYz/?mibextid=wwXIfr"
@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
               >
                 Facebook
               </a>
-            </div>
+            </div> */}
             <div className="flex items-center">
               <Linkedin size={18} className="mr-2 text-teal-200" />
               <a
